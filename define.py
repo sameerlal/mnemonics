@@ -12,7 +12,10 @@ for word in wordFile:	#Iterate over each word
 	r = requests.get("http://mnemonicdictionary.com/word/" + str(word))
 	data = r.text
 	soup = BeautifulSoup(data, "lxml")
-	mnem = str(soup.find_all("div", class_="span9")[0].text)
+	if( len(soup.find_all("div", class_="span9")) !=  0 ):
+		mnem = str(soup.find_all("div", class_="span9")[0].text)
+	else:
+		mnem = "Cannot find mnemonic" 
 	mnem = mnem.strip()
 	output.write(word + ": " + str(mnem) +"\n\n")
 
